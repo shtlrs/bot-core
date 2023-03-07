@@ -130,6 +130,8 @@ class BotBase(commands.Bot):
         await self._extension_loading_task
         await self.tree.sync()
         await self.tree.sync(guild=discord.Object(self.guild_id))
+        for command in self.tree.walk_commands():
+            command.guild_only = True
 
     async def load_extensions(self, module: types.ModuleType, sync_app_commands: bool = True) -> None:
         """
